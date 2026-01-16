@@ -40,7 +40,7 @@ def register():
                 return redirect(url_for("register"))
             
             if vulnerable_percentage > 85:
-                password = hash_password(password) 
+               # password = hash_password(password) 
                 store_user(username, password)
                 flash(f"Registration successful! Vulnerability: {vulnerable_percentage:.2f}%")
                 log_event(username, "registration successful")
