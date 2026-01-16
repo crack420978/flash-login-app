@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+</head>
+<body>
+
+<h2>Register</h2>
+
+<!-- Flash messages -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul style="color: green;">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<form method="POST" action="{{ url_for('register') }}">
+    <input name="username" placeholder="Username" required><br><br>
+    <input name="password" placeholder="Password" type="password" required>
+    <button type="submit">Register</button>
+</form>
+
+<a href="{{ url_for('login') }}">Already have an account?</a>
+
+</body>
+</html>
