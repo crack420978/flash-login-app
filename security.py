@@ -18,15 +18,15 @@ def is_predictable(password , username):
     # Check for common patterns
     common_patterns = [
         r'\d{4}',  # Four consecutive digits
-       r'[a-zA-Z]{2,}',  # Three or more letters
+      # r'[a-zA-Z]{2,}',  # Three or more letters
         r'password',  # The word 'password'
         r'1234',  # The sequence '1234'
         r'letmein',  # The phrase 'letmein'
         r'qwerty',  # The word 'qwerty'
         r'abc',  # The sequence 'abc'
         r'admin',  # The word 'admin'
-        r'user',  # The word 'user'
-        r'secure',  # The word 'secure'
+        r'^user$',  # The word 'user'
+        r'^secure$',  # The word 'secure'
         r'system',  # The word 'system'
     ]
     
