@@ -45,7 +45,7 @@ def verify_user(username,password):
 
     if result:  
         stored_password_hash = result[0]
-        return ph.verify(stored_password_hash)  
+        return ph.verify(stored_password_hash,password)  
     return False
 
 

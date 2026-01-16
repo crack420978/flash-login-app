@@ -1,5 +1,29 @@
 <html>
-    <title>Login Page</title>
+  <head>
+
+     <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        input {
+            padding: 10px;
+            margin: 5px 0;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+      </style>
+    </head> 
     <body>
         <!-- Flash messages -->
 {% with messages = get_flashed_messages() %}

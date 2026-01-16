@@ -28,19 +28,28 @@ def register():
 
             vul = password_vulnerability_level(password , username)
             vulnerable_percentage = vul  * 10
-            flash(f"Password Vulnerability Level: {vulnerable_percentage}%")
+          #  flash(f"Password Vulnerability Level: {vulnerable_percentage}%")
 
+            vulnerable_percentage = password_vulnerability_level(password, username)
+
+            flash(f"Password Vulnerability Level: {vulnerable_percentage:.2f}%")
 
             if is_predictable(password , username):
                 flash(f"The password is too predictable. Please choose a stronger password.")
                 log_event(username , "registration failed - predictable password")
                 return redirect(url_for("register"))
-            else:
+            
+            if vulnerable_percentage > 85:
                 store_user(username, password)
-                flash(f"Registration successful.\n vulnerability :{vulnerable_percentage}%")
-                log_event(username , "registration successful")
+                flash(f"Registration successful! Vulnerability: {vulnerable_percentage:.2f}%")
+                log_event(username, "registration successful")
+                return redirect(url_for("login"))
+            else:
+                flash(f"Password vulnerability too low ({vulnerable_percentage:.2f}%). Registration blocked.")
+                log_event(username, "registration failed - low vulnerability")
+                return redirect(url_for("register"))
         
-            return redirect(url_for("login"))
+          #  return redirect(url_for("login"))
         return render_template("register.html")
 
   
