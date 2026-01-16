@@ -27,7 +27,7 @@ def register():
             password = request.form["password"]
 
             vul = password_vulnerability_level(password , username)
-            vulnerable_percentage = vul  * 10
+          #  vulnerable_percentage = vul  * 10
           #  flash(f"Password Vulnerability Level: {vulnerable_percentage}%")
 
             vulnerable_percentage = password_vulnerability_level(password, username)
