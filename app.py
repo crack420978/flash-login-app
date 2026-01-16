@@ -63,7 +63,7 @@ def login():
             if verify_user(username, password):
                 flash(f"Login successful.")
                 log_event(username , "login successful")
-                return redirect(url_for("home"))
+                return redirect(url_for("dashboard"))
             else:
               #  print("Invalid username or password.")
                 log_event(username , "login failed")
