@@ -1,7 +1,7 @@
 from flask import Flask , render_template , request , redirect , url_for , flash
 from database import store_user, verify_user , create_table , remove_user, create_table , audit_table , log_event
 #from auth import register , login
-from security import is_predictable,password_vulnerability_level
+from security import hash_password, is_predictable,password_vulnerability_level
 import os
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -40,6 +40,7 @@ def register():
                 return redirect(url_for("register"))
             
             if vulnerable_percentage > 85:
+                password = hash_password(password) 
                 store_user(username, password)
                 flash(f"Registration successful! Vulnerability: {vulnerable_percentage:.2f}%")
                 log_event(username, "registration successful")
