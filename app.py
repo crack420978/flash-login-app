@@ -1,4 +1,4 @@
-from flask import Flask , render_template , request , redirect, session , url_for , flash , jsonify , request 
+from flask import Flask , render_template , request , redirect, session , url_for , flash , jsonify 
 from database import store_user, verify_user , create_table , remove_user, create_table , audit_table , log_event
 #from auth import register , login
 from security import hash_password, is_predictable,password_vulnerability_level
@@ -32,7 +32,7 @@ def register():
 
             #vulnerable_percentage = password_vulnerability_level(password, username)
 
-            flash(f"Password Vulnerability Level: {vulnerable_percentage:.2f}%")
+           # flash(f"Password Vulnerability Level: {vulnerable_percentage:.2f}%")
 
             if is_predictable(password , username):
                 flash(f"The password is too predictable. Please choose a stronger password.")
@@ -68,7 +68,11 @@ def vulnerability_check():
     strength_percentage = round(100 - vulnerable_percentage,2)
     is_predictable_flag = is_predictable(password , username)
 
-    return jsonify({"vulnerability": f"{vulnerable_percentage:.2f}%", "strength": f"{strength_percentage:.2f}%", "predictable": is_predictable_flag}), 200
+    return jsonify({
+        "vulnerability": round(vulnerable_percentage,2),
+        "strength": round(strength_percentage,2),
+        "predictable": is_predictable_flag
+   } ), 200
 
 
 @app.route("/login",methods=["GET","POST"])
@@ -78,10 +82,11 @@ def login():
             password = request.form["password"]
 
             if verify_user(username, password):
+                session['user']=username
                 flash(f"Login successful.")
                 log_event(username , "login successful")
                 return redirect(url_for("dashboard"))
-                session['user']=username
+                
             else:
               #  print("Invalid username or password.")
                 log_event(username , "login failed")
