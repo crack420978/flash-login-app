@@ -18,9 +18,9 @@
         })
         .then(response => response.json())
         .then(data => {
-            vulResult.textContent = `vulnerability: ${data.vulnerability}%`;
-            strengthResult.textContent = `strength: ${data.strength}%`;
-            vulBar.style.width = `${data.vulnerability}%`;
+            vulResult.textContent = `vulnerability: ${data.vulnerability}`;
+            strengthResult.textContent = `strength: ${data.strength}`;
+            vulBar.style.width = `${data.vulnerability}`;
 
             if (data.vulnerability < 30) {
                 vulBar.style.backgroundColor = 'green';

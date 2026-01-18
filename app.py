@@ -59,7 +59,7 @@ def vulnerability_check():
     username = data.get("username", "")
     password = data.get("password", "")
 
-    if not username or not password:
+    if not password:
         return jsonify({"error": "Username and password are required."}), 400
 
     vul = password_vulnerability_level(password , username)
