@@ -25,8 +25,8 @@ def is_predictable(password , username):
         r'qwerty',  # The word 'qwerty'
         r'abc',  # The sequence 'abc'
         r'admin',  # The word 'admin'
-        r'^user$',  # The word 'user'
-        r'^secure$',  # The word 'secure'
+        r'user',  # The word 'user'
+        r'secure',  # The word 'secure'
         r'system',  # The word 'system'
     ]
     

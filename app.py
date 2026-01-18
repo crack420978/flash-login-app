@@ -1,4 +1,4 @@
-from flask import Flask , render_template , request , redirect , url_for , flash
+from flask import Flask , render_template , request , redirect, session , url_for , flash , jsonify , request 
 from database import store_user, verify_user , create_table , remove_user, create_table , audit_table , log_event
 #from auth import register , login
 from security import hash_password, is_predictable,password_vulnerability_level
@@ -39,21 +39,38 @@ def register():
                 log_event(username , "registration failed - predictable password")
                 return redirect(url_for("register"))
             
-            if vulnerable_percentage > 85:
+            if vulnerable_percentage <= 15:
                # password = hash_password(password) 
                 store_user(username, password)
-                flash(f"Registration successful! Vulnerability: {vulnerable_percentage:.2f}%")
+                flash(f"Registration successful!")
                 log_event(username, "registration successful")
                 return redirect(url_for("login"))
             else:
-                flash(f"Password vulnerability too low ({vulnerable_percentage:.2f}%). Registration blocked.")
-                log_event(username, "registration failed - low vulnerability")
+                flash(f"Password vulnerability too high ({vulnerable_percentage:.2f}%). Registration blocked.")
+                log_event(username, "registration failed - high vulnerability")
                 return redirect(url_for("register"))
         
           #  return redirect(url_for("login"))
         return render_template("register.html")
 
-  
+@app.route("/vulnerability_check", methods=["POST"])
+def vulnerability_check():
+    data = request.get_json()
+    username = data.get("username", "")
+    password = data.get("password", "")
+
+    if not username or not password:
+        return jsonify({"error": "Username and password are required."}), 400
+
+    vul = password_vulnerability_level(password , username)
+    vulnerable_percentage = round(vul  * 10,2)
+
+    strength_percentage = round(100 - vulnerable_percentage,2)
+    is_predictable_flag = is_predictable(password , username)
+
+    return jsonify({"vulnerability": f"{vulnerable_percentage:.2f}%", "strength": f"{strength_percentage:.2f}%", "predictable": is_predictable_flag}), 200
+
+
 @app.route("/login",methods=["GET","POST"])
 def login():
         if request.method == "POST":
@@ -64,6 +81,7 @@ def login():
                 flash(f"Login successful.")
                 log_event(username , "login successful")
                 return redirect(url_for("dashboard"))
+                session['user']=username
             else:
               #  print("Invalid username or password.")
                 log_event(username , "login failed")
@@ -71,10 +89,19 @@ def login():
                 return redirect(url_for("login"))
             
         return render_template("login.html")
-
-@app.route ("/dashboard")
+    
+@app.route("/dashboard")
 def dashboard():
+    if "user" not in session:       # user not logged in
+        return redirect(url_for("login"))
     return render_template("dashboard.html")
+
+@app.route("/logout")
+def logout():
+    session.pop("user", None)   # remove user from session
+    flash("You have been logged out")
+    return redirect(url_for("login"))
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

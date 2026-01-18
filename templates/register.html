@@ -42,11 +42,20 @@
 
 <form method="POST" action="{{ url_for('register') }}">
     <input name="username" placeholder="Username" required><br><br>
-    <input name="password" placeholder="Password" type="password" required>
+
+    <input name="password" placeholder="Password" type="password" required><br><br>
+    
+    <div id="vul-result">vulnerability:0%</div>
+    <div  id="strength-result">strength:0%</div>
+
+    <div style="width: auto; background:fixed; height: auto; border-radius: 10px">
+      <div id="vul-bar" style="width: 0%; height: 20px; background-color: red; border-radius: 10px"></div>
+    </div>
     <button type="submit">Register</button>
 </form>
 
 <a href="{{ url_for('login') }}">Already have an account?</a>
 
+<script src="{{ url_for('static', filename='vulnerabilty.js') }}"></script>
 </body>
 </html>
