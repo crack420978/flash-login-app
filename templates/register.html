@@ -32,7 +32,7 @@
 <!-- Flash messages -->
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <ul style="color: green;">
+    <ul style="color: rgb(0, 26, 128);">
       {% for message in messages %}
         <li>{{ message }}</li>
       {% endfor %}
@@ -45,17 +45,55 @@
 
     <input name="password" placeholder="Password" type="password" required><br><br>
     
-    <div id="vul-result">vulnerability:0%</div>
-    <div  id="strength-result">strength:0%</div>
-
-    <div style="width: auto; background:fixed; height: auto; border-radius: 10px">
-      <div id="vul-bar" style="width: 0%; height: 20px; background-color: red; border-radius: 10px"></div>
+    <div style="width: 100px; background:#ddd; height: 20px; border-radius: 0px">
+      <div id="strength-bar" style="width: 0%; height: 20px; background-color: red; border-radius: 10px"></div>
     </div>
+    <div id="vul-result">vulnerability:0%</div>
+    <div id="strength-result">strength:0%</div>
+
     <button type="submit">Register</button>
 </form>
 
 <a href="{{ url_for('login') }}">Already have an account?</a>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const passwordInput = document.querySelector('input[name="password"]');
+    const usernameInput = document.querySelector('input[name="username"]');     
+    const vulResult = document.getElementById('vul-result');
+    const strengthResult = document.getElementById('strength-result');
+    const vulBar = document.getElementById('vul-bar');
 
-<script src="{{ url_for('static', filename='vulnerabilty.js') }}"></script>
+    passwordInput.addEventListener('input', () => {
+       fetch("/check_password", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: usernameInput.value,
+                password: passwordInput.value   
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            vulResult.textContent = `vulnerability: ${data.vulnerability}%`;
+            strengthResult.textContent = `strength: ${data.strength}%`;
+            strengthBar.style.width = `${data.strength}%`;
+
+            if (data.strength >= 30) {
+                strengthBar.style.backgroundColor = 'green';
+            } else if (data.strength >= 70) {
+                strengthBar.style.backgroundColor = 'orange';
+            } else {
+                strengthBar.style.backgroundColor = 'red';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }); 
+});
+</script>
+
+
+
 </body>
 </html>

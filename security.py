@@ -81,9 +81,9 @@ def password_vulnerability_level(password ,username):
         score += 15
     if re.search(r'\d',password):
         score += 15
-    
-    if username.lower() not in password:
-        score += 10
+
+    if (username.lower() or username.upper()) not in password:
+        score += 15
     
     common_password = [
         r'password' , r'qwert' , r'1234567890' , r'admin' , r'abc' 
@@ -93,9 +93,8 @@ def password_vulnerability_level(password ,username):
         if re.search(pattern , password , re.IGNORECASE):
             score -= 30
     
-
-
-    # score
+       # score
     score = max(0, min(score, 100))
-
     return score // 10
+
+ 
