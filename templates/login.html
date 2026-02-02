@@ -16,7 +16,7 @@
             cursor: pointer;
             color: blue;
         }
-        password-container {
+        .password-container {
             position: relative;
             display: inline-block;
         }
@@ -53,22 +53,24 @@
 <form method="post" action="{{ url_for('login') }}">
     <input type="text" name="username" placeholder="Username" required><br><br>
     <div class="password-container">
-    <input type="password" name="password" placeholder="Password" required><br><br>
+    <input id="password-field" name="password" placeholder="Password" required>
     <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
     
-    <script>
-        function togglePasswordVisibility() {
-            var passwordField = document.querySelector('input[name="password"]');
-            var toggleText = document.querySelector('.toggle-password');
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                toggleText.textContent = "🙈";
-            } else {
-                passwordField.type = "password";
-                toggleText.textContent = "👁️";
-            }
+   <script>
+      function togglePasswordVisibility() {
+        const passwordField = document.getElementById('password-field');
+        const toggleButton = document.querySelector('.toggle-password');
+        if (passwordField.type === 'password') {
+          passwordField.type = 'text';
+          toggleButton.textContent = "🙈";
+        } else {
+          passwordField.type = 'password';
+          toggleButton.textContent = "👁️";
         }
-    </script></div><br>
+      }
+    </script>   
+    </div>
+    <br>
     <input type="submit" value="login">
 </form>
 
