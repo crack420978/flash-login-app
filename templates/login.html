@@ -8,6 +8,18 @@
             font-family: Arial, sans-serif;
             margin: 50px;
         }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: blue;
+        }
+        password-container {
+            position: relative;
+            display: inline-block;
+        }
         input {
             padding: 10px;
             margin: 5px 0;
@@ -40,7 +52,23 @@
 <h2>LOGIN</h2>
 <form method="post" action="{{ url_for('login') }}">
     <input type="text" name="username" placeholder="Username" required><br><br>
+    <div class="password-container">
     <input type="password" name="password" placeholder="Password" required><br><br>
+    <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+    
+    <script>
+        function togglePasswordVisibility() {
+            var passwordField = document.querySelector('input[name="password"]');
+            var toggleText = document.querySelector('.toggle-password');
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleText.textContent = "🙈";
+            } else {
+                passwordField.type = "password";
+                toggleText.textContent = "👁️";
+            }
+        }
+    </script></div><br>
     <input type="submit" value="login">
 </form>
 
