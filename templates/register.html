@@ -62,7 +62,7 @@
     <input name="username" placeholder="Username" type="text" required><br><br>
 
     <div class="password-container">
-    <input id="password-field" name="password" placeholder="Password" type="password" required>
+    <input id="password-field" name="password" placeholder="Password" type="password" onpaste="return false;" oncut="return false;" oncopy="return false;" required>
     <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
     <script>
       function togglePasswordVisibility() {
