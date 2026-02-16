@@ -1,0 +1,8 @@
+_pychache_/
+*.pyc
+
+/data/
+*.lock
+
+.env
+
