@@ -10,7 +10,7 @@ from argon2.exceptions import VerifyMismatchError
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-client=MongoClient("mongodb://localhost:27017/")
+client=MongoClient("mongodb+srv://gouthamnaik1111_db_user:3MuWDl4gIIrS1zgi@cluster0.jqh2t0d.mongodb.net/?appName=Cluster0")
 db=client["smart_auditor"]
 #client = client["user_db"]
 
