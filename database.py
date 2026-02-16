@@ -1,5 +1,6 @@
-import sqlite3
+#import sqlite3
 from security import hash_password , ph
+
 def create_table():
     """
     Create a SQLite database table for storing usernames and hashed passwords.
@@ -13,8 +14,8 @@ def create_table():
         )
     ''')
     conn.commit()
-    conn.close()
-
+    conn.close() 
+    
 
 
 def store_user(username, password):
@@ -66,6 +67,7 @@ def remove_user():
 
     conn.close()
     print(f"User '{username}' has been removed.")
+    
 
 def audit_table():
     conn = sqlite3.connect("users.db")
