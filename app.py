@@ -2,7 +2,7 @@ from flask import Flask , render_template , request , redirect, session , url_fo
 #from database import store_user, verify_user , create_table , remove_user, create_table , audit_table , log_event
 from datetime import datetime
 from pymongo import MongoClient
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import re
 from security import hash_password, is_predictable,password_vulnerability_level 
 import os
