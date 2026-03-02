@@ -1,4 +1,5 @@
 Flask
 argon2-cffi
+pymongo
 Flask>=2.0
 argon2-cffi>=21.0
