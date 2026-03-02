@@ -8,8 +8,7 @@ from security import hash_password, is_predictable,password_vulnerability_level
 import os
 from argon2 import PasswordHasher
 
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__),".env"))  # Load environment variables from .env file
-
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env")) # Load environment variables from .env file
 ph = PasswordHasher()
 from argon2.exceptions import VerifyMismatchError
 app = Flask(__name__)
