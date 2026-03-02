@@ -14,9 +14,10 @@ from argon2.exceptions import VerifyMismatchError
 app = Flask(__name__)
 
 mongo_uri = os.getenv("MONGO_URI")
+app.secret_key = os.getenv("SECRET_KEY")
 if not mongo_uri:
     raise ValueError("MONGO_URI environment variable not set")
-app.secret_key = os.getenv("SECRET_KEY")
+
 
 client=MongoClient(mongo_uri)
 db=client["smart_auditor"]
