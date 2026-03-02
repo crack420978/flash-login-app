@@ -8,7 +8,8 @@ from security import hash_password, is_predictable,password_vulnerability_level
 import os
 from argon2 import PasswordHasher
 
-load_dotenv()  # Load environment variables from .env file
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__),".env"))  # Load environment variables from .env file
+
 ph = PasswordHasher()
 from argon2.exceptions import VerifyMismatchError
 app = Flask(__name__)
@@ -18,7 +19,7 @@ if not mongo_uri:
     raise ValueError("MONGO_URI environment variable not set")
 app.secret_key = os.getenv("SECRET_KEY")
 
-client=MongoClient("mongodb+srv://gouthamnaik1111_db_user:<db_password>@cluster0.jqh2t0d.mongodb.net/?appName=Cluster0")
+client=MongoClient(mongo_uri)
 db=client["smart_auditor"]
 #client = client["user_db"]
 
