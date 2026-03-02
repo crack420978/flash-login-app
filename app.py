@@ -20,7 +20,6 @@ app.secret_key = os.getenv("SECRET_KEY")
 
 client=MongoClient(mongo_uri)
 db=client["smart_auditor"]
-#client = client["user_db"]
 
 users_collection = db["users"]
 logs_collection = db["audit_logs"]
@@ -33,11 +32,6 @@ print("mongo DB connected successfully")
 def home():
     return render_template("index.html")
 
-#print("1.Register ")
-#print("2.Login ")
-
-#choice = input("Enter choice: ")
-#if choice == '1':
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
