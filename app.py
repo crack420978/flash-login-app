@@ -1,10 +1,7 @@
 from flask import Flask , render_template , request , redirect, session , url_for , flash , jsonify 
-#from database import store_user, verify_user , create_table , remove_user, create_table , audit_table , log_event
 from datetime import datetime
 from pymongo import MongoClient
-#from dotenv import load_dotenv
-import re
-from security import hash_password, is_predictable,password_vulnerability_level 
+from security import is_predictable,password_vulnerability_level 
 import os
 from argon2 import PasswordHasher
 
@@ -13,8 +10,8 @@ ph = PasswordHasher()
 from argon2.exceptions import VerifyMismatchError
 app = Flask(__name__)
 
-mongo_uri = os.getenv("MONGO_URI")
-app.secret_key = os.getenv("SECRET_KEY")
+mongo_uri = "mongodb+srv://gouthamnaik1111_db_user:goutham6285@cluster0.jqh2t0d.mongodb.net/smart_auditor?retryWrites=true&w=majority"
+app.secret_key = os.getenv("SECRET_KEY") or "WELCOME_TO_MYDATABASE"
 if not mongo_uri:
     raise ValueError("MONGO_URI environment variable not set")
 
