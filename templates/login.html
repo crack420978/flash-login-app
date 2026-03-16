@@ -1,79 +1,153 @@
 <html>
-  <head>
+<head>
+<title>User Login</title>
 
-     <title>Login Page</title>
-    <style>
-        body {
-            background-color: brown;
-            font-family: Arial, sans-serif;
-            margin: 50px;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: blue;
-        }
-        .password-container {
-            position: relative;
-            display: inline-block;
-        }
-        input {
-            padding: 10px;
-            margin: 5px 0;
-            width: 200px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: blue;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: darkblue;
-        }
-      </style>
-    </head> 
-    <body>
-        <!-- Flash messages -->
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+    font-family: Arial, sans-serif;
+
+    /* gradient background like image */
+    background: linear-gradient(to bottom,#86a9d6,#d7a3b7);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:420px;
+    text-align:center;
+}
+
+h1{
+    color:#0a2540;
+    letter-spacing:4px;
+    font-weight:300;
+}
+
+.input-box{
+    margin:30px 0;
+    position:relative;
+    text-align: left;
+}
+
+.input-box input{
+    width:100%;
+    border:none;
+    border-bottom:2px solid #0a2540;
+    padding:10px 40px;
+    font-size:16px;
+    background:transparent;
+    outline:none;
+}
+
+.icon{
+    position:absolute;
+    left:5px;
+    top:10px;
+    font-size:18px;
+}
+
+.toggle-password{
+    position:absolute;
+    right:5px;
+    top:10px;
+    cursor:pointer;
+}
+
+.forgot-password {
+    text-align: right;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:25px;
+    border:none;
+    background:#0a2540;
+    color:white;
+    font-size:16px;
+    letter-spacing:2px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#05192d;
+}
+
+a{
+    text-decoration:none;
+    color:#0a2540;
+}
+
+.flash{
+    color:green;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="login-box">
+
+<h1>User Login</h1>
+
+<!-- Flash Messages -->
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul style="color: green;">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+{% if messages %}
+<div class="flash">
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+</div>
+{% endif %}
 {% endwith %}
-    
-<h2>LOGIN</h2>
+
 <form method="post" action="{{ url_for('login') }}">
-    <input type="text" name="username" placeholder="Username" required><br><br>
-    <div class="password-container">
-    <input id="password-field" name="password" placeholder="Password" type="password" onpaste="return false;" oncut="return false;" oncopy="return false;" required>
-    <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
-    
-   <script>
-      function togglePasswordVisibility() {
-        const passwordField = document.getElementById('password-field');
-        const toggleButton = document.querySelector('.toggle-password');
-        if (passwordField.type === 'password') {
-          passwordField.type = 'text';
-          toggleButton.textContent = "🙈";
-        } else {
-          passwordField.type = 'password';
-          toggleButton.textContent = "👁️";
-        }
-      }
-    </script>   
-    </div>
-    <br>
-    <input type="submit" value="login">
+
+<div class="input-box">
+<span class="icon">📧</span>
+<input type="text" name="username" placeholder="Username" required>
+</div>
+
+<div class="input-box">
+<span class="icon">🔒</span>
+<input id="password-field" type="password" name="password" placeholder="Password" required>
+
+<span class="toggle-password" onclick="togglePasswordVisibility()">👁</span>
+</div>
+
+<button type="submit">LOGIN</button>
+
 </form>
 
-<a href="{{url_for('register')}}">don't have an account?</a>
-<body>
+<br>
+
+<a href="{{url_for('register')}}">Don't have an account?</a>
+
+</div>
+
+
+<script>
+
+function togglePasswordVisibility(){
+    const passwordField = document.getElementById("password-field");
+
+    if(passwordField.type === "password"){
+        passwordField.type = "text";
+    }else{
+        passwordField.type = "password";
+    }
+}
+
+</script>
+
+</body>
 </html>
