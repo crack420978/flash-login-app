@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
+    <title align="center">Register</title>
     <style align="center">
         body {
             align-items: center;
-              background-color: rgb(187, 85, 27);
+              background-color: #48da8e83;
             font-family: Arial, sans-serif;
             margin: 50px;
+        }
+
+        .container{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: rgba(252, 136, 136, 0.932) ;
+          background-size: auto;
+          width: 400px;
+          border-radius: 5px;
+          padding: 7px;
+          margin: 20px auto;
+          box-shadow: 10px 10px 20px rgba(245, 240, 240, 0.712);
+        }
+        p{
+          color :rgb(0, 26, 128);
+          text-align: center;
+          font-family: Arial, sans-serif;
+          font-size: small;
+
+
+        }
+        form{
+            background-color: rgba(52, 214, 255, 0.781);
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 254, 254, 0.788);
+             width: 300px;
+             margin: 20px auto;
         }
         input {
             padding: 10px;
@@ -17,6 +47,8 @@
         .password-container {
             position: relative;
             display: inline-block;
+            border-width: 10px;
+            border-radius: 10px;
         }
         .toggle-password {
             position: absolute;
@@ -32,15 +64,16 @@
             color: white;
             border: none;
             cursor: pointer;
+              border-radius: 5px;
         }
         button:hover {
-            background-color: darkblue;
+            background-color: rgb(1, 126, 68);
         }
       </style>
   </head>
 <body>
 
-<h2>Register</h2>
+<h2 align="center"><B>Registration</B></h2>
 
 <!-- Flash messages -->
 {% with messages = get_flashed_messages() %}
@@ -52,11 +85,13 @@
     </ul>
   {% endif %}
 {% endwith %}
-<p><i>THE USER MUST FOLLOW THE BELOW CRITERIA'S</i></p>
+<div class="container">
+<p><B>THE USER MUST FOLLOW THE BELOW CRITERIA'S</B></p>
 <p>1. Password must be at least 8 characters long.</p>
 <p>2. Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</p>
 <p>3. Password should not contain the username.</p>
 <p>4. Password should not be a common password.</p>
+</div>  
 
 <form method="POST" action="{{ url_for('register') }}">
     <input name="username" placeholder="Username" type="text" required><br><br>
@@ -81,7 +116,7 @@
     
 
 
-    <div style="width: 100px; background:#ddd; height: 20px; border-radius: 10px">
+    <div style="width: 90%; background:#ddd; height: 20px; border-radius: 10px;margin: 10px auto;">
       <div id="strength-bar" style="width: 0%; height: 20px; background-color: red; border-radius: 10px"></div>
     </div>
 
@@ -94,7 +129,7 @@
     <button type="submit">Register</button>
 </form>
 
-<a href="{{ url_for('login') }}">Already have an account?</a>
+<a href="{{ url_for('login') }}" align="center">Already have an account?</a>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const passwordInput = document.querySelector('input[name="password"]');
